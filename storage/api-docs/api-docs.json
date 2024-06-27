@@ -1,0 +1,398 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Subscription system",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/subscription_plan": {
+            "get": {
+                "tags": [
+                    "Subscription Plan"
+                ],
+                "summary": "List of all subscription plans",
+                "operationId": "eb4d0bd18786428990b3ce035ec3e847",
+                "parameters": [
+                    {
+                        "name": "filter[name]",
+                        "in": "query",
+                        "description": "Filter by subscription plan name",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[price]",
+                        "in": "query",
+                        "description": "Filter by subscription plan price",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filter[description]",
+                        "in": "query",
+                        "description": "Filter by subscription plan description",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Light",
+                                            "description": "Voluptatem est aliquam enim eum soluta perferendis fugit.",
+                                            "price": "100",
+                                            "duration": 90,
+                                            "created_at": "2024-06-26T07:51:10.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "name": "Optimal",
+                                            "description": "Rerum eius id voluptatem dolores.",
+                                            "price": "500",
+                                            "duration": 180,
+                                            "created_at": "2024-06-26T07:51:10.000000Z"
+                                        },
+                                        {
+                                            "id": 3,
+                                            "name": "Maximal",
+                                            "description": "Temporibus qui qui assumenda itaque placeat.",
+                                            "price": "1000",
+                                            "duration": 365,
+                                            "created_at": "2024-06-26T07:51:10.000000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Subscription Plan"
+                ],
+                "summary": "Create new subscription plan.",
+                "operationId": "2d8f86c7167c0781db13109336afae57",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "price": {
+                                                "type": "string"
+                                            },
+                                            "duration": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "name": "Maximal+",
+                                "description": "Voluptatum sequi odio sint dolorem consectetur nihil quasi.",
+                                "price": "200.00",
+                                "duration": 545
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 4
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "price": {
+                                                    "type": "string"
+                                                },
+                                                "duration": {
+                                                    "type": "integer"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscription_plan/{subscription_plan}": {
+            "get": {
+                "tags": [
+                    "Subscription Plan"
+                ],
+                "summary": "Get single subscription plan",
+                "operationId": "976f7eca427efbd1b01201ce056cfa60",
+                "parameters": [
+                    {
+                        "name": "subscription_plan",
+                        "in": "path",
+                        "description": "Subscription plan id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Light"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Voluptatem est aliquam enim eum soluta perferendis fugit."
+                                                },
+                                                "price": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 90
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Subscription Plan"
+                ],
+                "summary": "Update subscription plan",
+                "operationId": "4c07ab8c01cc86c7ff978f31aec51d58",
+                "parameters": [
+                    {
+                        "name": "subscription_plan",
+                        "in": "path",
+                        "description": "Subscription plan id",
+                        "required": true,
+                        "example": 3
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "price": {
+                                                "type": "string"
+                                            },
+                                            "duration": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "name": "Maximal+",
+                                "description": "Voluptatum sequi odio sint dolorem consectetur nihil quasi.",
+                                "price": "200.00",
+                                "duration": 545
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Maximal+"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Voluptatum sequi odio sint dolorem consectetur nihil quasi."
+                                                },
+                                                "price": {
+                                                    "type": "string",
+                                                    "example": "200.00"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 545
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Subscription Plan"
+                ],
+                "summary": "Delete subscription plan",
+                "operationId": "7a8adad9d8b514b121a10cf7d3106e3f",
+                "parameters": [
+                    {
+                        "name": "subscription_plan",
+                        "in": "path",
+                        "description": "Subscription plan id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
