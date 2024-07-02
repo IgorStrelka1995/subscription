@@ -5,6 +5,232 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/subscription/subscribe": {
+            "post": {
+                "tags": [
+                    "Subscription"
+                ],
+                "summary": "Subscribe",
+                "operationId": "efbb90abaed19f13bf0fc1221778aa6f",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "plan_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "user_id": "1",
+                                "plan_id": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "plan_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "start_date": {
+                                                    "type": "string",
+                                                    "example": "2024-06-01 00:00:00"
+                                                },
+                                                "end_date": {
+                                                    "type": "string",
+                                                    "example": "2024-08-30 00:00:00"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscription/cancel/{subscription}": {
+            "put": {
+                "tags": [
+                    "Subscription"
+                ],
+                "summary": "Cancel subscription",
+                "operationId": "287b609b4fa93fed49992089bf24cdbe",
+                "parameters": [
+                    {
+                        "name": "subscription",
+                        "in": "path",
+                        "description": "Subscription id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "plan_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "start_date": {
+                                                    "type": "string",
+                                                    "example": "2024-06-01 00:00:00"
+                                                },
+                                                "end_date": {
+                                                    "type": "string",
+                                                    "example": "2024-08-30 00:00:00"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "cancelled"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
+        "/api/v1/subscription/prolongation/{subscription}": {
+            "put": {
+                "tags": [
+                    "Subscription"
+                ],
+                "summary": "Prolongation subscription",
+                "operationId": "362f33cf1308e27b73c026a3f5d0fbf3",
+                "parameters": [
+                    {
+                        "name": "subscription",
+                        "in": "path",
+                        "description": "Subscription id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "plan_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "start_date": {
+                                                    "type": "string",
+                                                    "example": "2024-06-01 00:00:00"
+                                                },
+                                                "end_date": {
+                                                    "type": "string",
+                                                    "example": "2024-08-30 00:00:00"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
         "/api/v1/subscription_plan": {
             "get": {
                 "tags": [

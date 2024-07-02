@@ -9,6 +9,7 @@ use App\Http\Resources\SubscriptionPlanCollection;
 use App\Http\Resources\SubscriptionPlanResource;
 use App\Models\SubscriptionPlan;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use OpenApi\Attributes as OA;
