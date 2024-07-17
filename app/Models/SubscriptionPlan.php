@@ -22,4 +22,9 @@ class SubscriptionPlan extends Model
     const SUBSCRIPTION_LIGHT_PRICE = 100;
     const SUBSCRIPTION_OPTIMAL_PRICE = 500;
     const SUBSCRIPTION_MAXIMAL_PRICE = 1000;
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

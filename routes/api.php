@@ -24,5 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post("subscription/subscribe", [\App\Http\Controllers\Api\v1\SubscriptionController::class, "subscribe"]);
     Route::put("subscription/prolongation/{subscription}", [\App\Http\Controllers\Api\v1\SubscriptionController::class, "prolongation"]);
     Route::put("subscription/cancel/{subscription}", [\App\Http\Controllers\Api\v1\SubscriptionController::class, "cancel"]);
+
+    Route::post("payment/stripe", [\App\Http\Controllers\Api\v1\PaymentController::class, "stripe"]);
+    Route::post("payment/paypal", [\App\Http\Controllers\Api\v1\PaymentController::class, "paypal"]);
 });
 

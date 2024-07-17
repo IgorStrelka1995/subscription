@@ -5,6 +5,178 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/payment/stripe": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Payment",
+                "operationId": "f8b3d39738e32efe5fd284e2398321bb",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "subscription_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "user_id": "1",
+                                "subscription_id": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "subscription_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "amount": {
+                                                    "type": "string",
+                                                    "example": "100.00"
+                                                },
+                                                "payment_method": {
+                                                    "type": "string",
+                                                    "example": "stripe"
+                                                },
+                                                "payment_status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
+        "/api/v1/payment/paypal": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Payment",
+                "operationId": "380ecf414d7324f68cfec01ae1c1f4f4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "subscription_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "example": {
+                                "user_id": "1",
+                                "subscription_id": "1"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "subscription_id": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "amount": {
+                                                    "type": "string",
+                                                    "example": "100.00"
+                                                },
+                                                "payment_method": {
+                                                    "type": "string",
+                                                    "example": "paypal"
+                                                },
+                                                "payment_status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-06-26T07:51:10.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": ""
+                    }
+                ]
+            }
+        },
         "/api/v1/subscription/subscribe": {
             "post": {
                 "tags": [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\v1\Controllers;
+namespace Tests\Feature\Controllers\Api\v1;
 
 use App\Models\SubscriptionPlan;
 use Illuminate\Foundation\Testing\RefreshDatabase;

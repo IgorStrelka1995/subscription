@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\v1\Controllers;
+namespace Tests\Feature\Controllers\Api\v1;
 
 use App\Models\Subscription;
 use App\Models\SubscriptionPlan;
@@ -17,23 +17,24 @@ class SubscriptionControllerTest extends TestCase
 
     public function test_subscribe_to_subscription_plan()
     {
-        User::factory()->create();
-
-        $this->assertDatabaseCount('users', 1);
+        $user = User::factory()->create();
 
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
 
-        $this->assertDatabaseCount('subscription_plans', 3);
-
-        $response = $this->postJson('/api/v1/subscription/subscribe', ["user_id" => "1", "plan_id" => "1"]);
+        $response = $this->postJson('/api/v1/subscription/subscribe', ["user_id" => $user->id, "plan_id" => 1]);
 
         $response->assertStatus(201);
 
-        $response->assertJson(function (AssertableJson $json) {
-            $json->has('data', function (AssertableJson $json) {
-                $json->hasAll(['id', 'user_id', 'plan_id', 'start_date', 'end_date', 'status', 'created_at'])
-                    ->where('user_id', '1')
-                    ->where('plan_id', '1')
+        $response->assertJson(function (AssertableJson $json) use ($user) {
+            $json->has('data', function (AssertableJson $json)  use ($user) {
+                $json->hasAll(['id', 'user_id', 'plan', 'start_date', 'end_date', 'status', 'created_at'])
+                    ->where('user_id', $user->id)
+                    ->has('plan', function (AssertableJson $json) {
+                        $json
+                            ->hasAll(['id', 'name', 'description', 'price', 'duration', 'created_at'])
+                            ->where('name', SubscriptionPlan::SUBSCRIPTION_LIGHT_PLAN)
+                        ;
+                    })
                     ->where('start_date', Carbon::now()->toDateTimeString())
                     ->where('end_date', Carbon::now()->addDays(90)->toDateTimeString())
                     ->where('status', Subscription::SUBSCRIPTION_STATUS_ACTIVE)
@@ -46,11 +47,7 @@ class SubscriptionControllerTest extends TestCase
     {
         User::factory()->create(['id' => 1]);
 
-        $this->assertDatabaseCount('users', 1);
-
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
-
-        $this->assertDatabaseCount('subscription_plans', 3);
 
         Subscription::factory()->create(['id' => 1, 'user_id' => 1, 'plan_id' => 1, 'status' => 'active']);
 
@@ -61,10 +58,17 @@ class SubscriptionControllerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertJson(function (AssertableJson $json) {
-            $json->has('data', function (AssertableJson $json) {
-                $json->hasAll(['id', 'user_id', 'plan_id', 'start_date', 'end_date', 'status', 'created_at'])
+            $json
+                ->has('data', function (AssertableJson $json) {
+                $json
+                    ->hasAll(['id', 'user_id', 'plan', 'start_date', 'end_date', 'status', 'created_at'])
                     ->where('user_id', 1)
-                    ->where('plan_id', 1)
+                    ->has('plan', function (AssertableJson $json) {
+                        $json
+                            ->hasAll(['id', 'name', 'description', 'price', 'duration', 'created_at'])
+                            ->where('name', SubscriptionPlan::SUBSCRIPTION_LIGHT_PLAN)
+                        ;
+                    })
                     ->where('status', Subscription::SUBSCRIPTION_STATUS_CANCELLED)
                     ->etc();
             });
@@ -75,11 +79,7 @@ class SubscriptionControllerTest extends TestCase
     {
         User::factory()->create(['id' => 1]);
 
-        $this->assertDatabaseCount('users', 1);
-
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
-
-        $this->assertDatabaseCount('subscription_plans', 3);
 
         $subscription = Subscription::factory()->create([
             'id' => 1, 'user_id' => 1, 'plan_id' => 1, 'status' => 'active',
@@ -102,9 +102,14 @@ class SubscriptionControllerTest extends TestCase
 
         $response->assertJson(function (AssertableJson $json) {
             $json->has('data', function (AssertableJson $json) {
-                $json->hasAll(['id', 'user_id', 'plan_id', 'start_date', 'end_date', 'status', 'created_at'])
+                $json->hasAll(['id', 'user_id', 'plan', 'start_date', 'end_date', 'status', 'created_at'])
                     ->where('user_id', 1)
-                    ->where('plan_id', 1)
+                    ->has('plan', function (AssertableJson $json) {
+                        $json
+                            ->hasAll(['id', 'name', 'description', 'price', 'duration', 'created_at'])
+                            ->where('name', SubscriptionPlan::SUBSCRIPTION_LIGHT_PLAN)
+                        ;
+                    })
                     ->where('start_date', '2024-06-01 00:00:00')
                     ->where('end_date', Carbon::now()->addDays(90)->toDateTimeString())
                     ->where('status', Subscription::SUBSCRIPTION_STATUS_ACTIVE)

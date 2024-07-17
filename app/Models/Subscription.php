@@ -14,4 +14,14 @@ class Subscription extends Model
     const SUBSCRIPTION_STATUS_EXPIRED = 'expired';
 
     protected $guarded = [];
+
+    public function plan()
+    {
+        return $this->belongsTo(SubscriptionPlan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
