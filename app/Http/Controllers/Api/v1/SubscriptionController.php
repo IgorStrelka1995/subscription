@@ -5,12 +5,20 @@ namespace App\Http\Controllers\Api\v1;
 use App\Facades\SubscriptionFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSubscriptionRequest;
+use App\Http\Resources\SubscriptionCollection;
 use App\Http\Resources\SubscriptionResource;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
+    public function index(Request $request)
+    {
+        $subscriptions = Subscription::where('user_id', $request->user()->id)->get();
+
+        return new SubscriptionCollection($subscriptions);
+    }
+
     /**
      * @OA\Post(
      *     path="/api/v1/subscription/subscribe",
@@ -102,6 +110,8 @@ class SubscriptionController extends Controller
      */
     public function cancel(Request $request, Subscription $subscription): SubscriptionResource
     {
+        $this->authorize('cancel', $subscription);
+
         $subscription->status = Subscription::SUBSCRIPTION_STATUS_CANCELLED;
 
         $subscription->update();
@@ -147,6 +157,8 @@ class SubscriptionController extends Controller
      */
     public function prolongation(Request $request, Subscription $subscription): SubscriptionResource
     {
+        $this->authorize('prolongation', $subscription);
+
         $subscriptionData = SubscriptionFacade::prolongationSubscription($subscription);
 
         $subscription->update($subscriptionData);
