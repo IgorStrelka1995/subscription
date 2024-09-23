@@ -29,7 +29,7 @@ class PaymentControllerTest extends TestCase
 
         $subscription = Subscription::factory()->create(['plan_id' => 1]);
 
-        $response = $this->postJson('/api/v1/payment/stripe', [
+        $response = $this->actingAs($user)->postJson('/api/v1/payment/stripe', [
             "user_id" => $user->id, "subscription_id" => $subscription->id
         ]);
 
@@ -56,7 +56,7 @@ class PaymentControllerTest extends TestCase
 
         $subscription = Subscription::factory()->create(['plan_id' => 1]);
 
-        $response = $this->postJson('/api/v1/payment/paypal', [
+        $response = $this->actingAs($user)->postJson('/api/v1/payment/paypal', [
             "user_id" => $user->id, "subscription_id" => $subscription->id
         ]);
 

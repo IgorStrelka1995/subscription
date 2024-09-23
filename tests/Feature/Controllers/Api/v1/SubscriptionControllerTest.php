@@ -21,7 +21,7 @@ class SubscriptionControllerTest extends TestCase
 
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
 
-        $response = $this->postJson('/api/v1/subscription/subscribe', ["user_id" => $user->id, "plan_id" => 1]);
+        $response = $this->actingAs($user)->postJson('/api/v1/subscription/subscribe', ["user_id" => $user->id, "plan_id" => 1]);
 
         $response->assertStatus(201);
 
@@ -45,7 +45,7 @@ class SubscriptionControllerTest extends TestCase
 
     public function test_cancel_subscribe()
     {
-        User::factory()->create(['id' => 1]);
+        $user = User::factory()->create(['id' => 1]);
 
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
 
@@ -53,7 +53,7 @@ class SubscriptionControllerTest extends TestCase
 
         $this->assertDatabaseCount('subscriptions', 1);
 
-        $response = $this->putJson('api/v1/subscription/cancel/1');
+        $response = $this->actingAs($user)->putJson('api/v1/subscription/cancel/1');
 
         $response->assertStatus(200);
 
@@ -77,7 +77,7 @@ class SubscriptionControllerTest extends TestCase
 
     public function test_prolongation_subscribe()
     {
-        User::factory()->create(['id' => 1]);
+        $user = User::factory()->create(['id' => 1]);
 
         SubscriptionPlan::factory()->createMany(self::$subscriptionPlans);
 
@@ -96,7 +96,7 @@ class SubscriptionControllerTest extends TestCase
 
         Carbon::setTestNow($fixedDate);
 
-        $response = $this->putJson('api/v1/subscription/prolongation/1');
+        $response = $this->actingAs($user)->putJson('api/v1/subscription/prolongation/1');
 
         $response->assertStatus(200);
 
