@@ -88,6 +88,8 @@ class SubscriptionPlanController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', SubscriptionPlan::class);
+
         $subscriptionPlans = QueryBuilder::for(SubscriptionPlan::class)
             ->allowedFilters([
                 AllowedFilter::exact('name'),
@@ -145,6 +147,8 @@ class SubscriptionPlanController extends Controller
      */
     public function store(StoreSubscriptionPlanRequest $request)
     {
+        $this->authorize('create', SubscriptionPlan::class);
+
         $data = $request->only(['name', 'description', 'price', 'duration']);
 
         $subscriptionPlan = SubscriptionPlan::create($data);
@@ -188,6 +192,8 @@ class SubscriptionPlanController extends Controller
      */
     public function show(SubscriptionPlan $subscriptionPlan)
     {
+        $this->authorize('view', SubscriptionPlan::class);
+
         return new SubscriptionPlanResource($subscriptionPlan);
     }
 
@@ -247,6 +253,8 @@ class SubscriptionPlanController extends Controller
      */
     public function update(UpdateSubscriptionPlanRequest $request, SubscriptionPlan $subscriptionPlan)
     {
+        $this->authorize('update', SubscriptionPlan::class);
+
         $data = $request->only(['name', 'description', 'price', 'duration']);
 
         $subscriptionPlan->update($data);
@@ -280,6 +288,8 @@ class SubscriptionPlanController extends Controller
      */
     public function destroy(SubscriptionPlan $subscriptionPlan)
     {
+        $this->authorize('delete', SubscriptionPlan::class);
+
         $subscriptionPlan->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
